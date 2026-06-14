@@ -1,114 +1,7 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
-
-const CATEGORIES = ["Все", "Технологии", "Наука", "Бизнес", "Культура", "Спорт"];
-
-const NEWS = [
-  {
-    id: 1,
-    category: "Технологии",
-    title: "Новый стандарт искусственного интеллекта меняет правила игры в индустрии",
-    excerpt: "Исследователи представили прорывную архитектуру нейронных сетей, способную обучаться в 10 раз быстрее предыдущих моделей при меньшем потреблении ресурсов.",
-    author: "Иван Петров",
-    date: "14 июня 2026",
-    readTime: "4 мин",
-    image: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/81ca01a0-b330-4482-851a-793e8a8da74a.jpg",
-    featured: true,
-    diggs: 1247,
-  },
-  {
-    id: 2,
-    category: "Наука",
-    title: "Учёные обнаружили новый тип квантовой запутанности",
-    excerpt: "Открытие открывает путь к созданию квантовых компьютеров нового поколения с неограниченными вычислительными возможностями.",
-    author: "Мария Соколова",
-    date: "13 июня 2026",
-    readTime: "6 мин",
-    image: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/b905cbf4-117a-4f9b-81c5-2c939dc28205.jpg",
-    featured: false,
-    diggs: 892,
-  },
-  {
-    id: 3,
-    category: "Бизнес",
-    title: "Крупнейшее слияние в истории tech-сектора завершено",
-    excerpt: "Сделка стоимостью $180 млрд объединила двух ключевых игроков рынка облачных технологий и изменит расстановку сил в отрасли.",
-    author: "Алексей Громов",
-    date: "13 июня 2026",
-    readTime: "3 мин",
-    image: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/237c7acc-a631-4d25-b5b5-cb1293be1800.jpg",
-    featured: false,
-    diggs: 634,
-  },
-  {
-    id: 4,
-    category: "Технологии",
-    title: "Операционная система нового поколения вышла в открытый доступ",
-    excerpt: "После пяти лет разработки команда опубликовала исходный код ОС, переосмысливающей подход к безопасности и производительности.",
-    author: "Светлана Ким",
-    date: "12 июня 2026",
-    readTime: "5 мин",
-    image: null,
-    featured: false,
-    diggs: 521,
-  },
-  {
-    id: 5,
-    category: "Культура",
-    title: "Художники и ИИ: новое творческое партнёрство или угроза?",
-    excerpt: "Документальный проект исследует, как современные художники адаптируют генеративный ИИ в качестве инструмента для создания уникальных произведений.",
-    author: "Ольга Смирнова",
-    date: "12 июня 2026",
-    readTime: "7 мин",
-    image: null,
-    featured: false,
-    diggs: 489,
-  },
-  {
-    id: 6,
-    category: "Наука",
-    title: "Марсоход передал первые данные о составе грунта",
-    excerpt: "Анализ образцов показал неожиданно высокое содержание органических соединений в нескольких точках плато Элизий.",
-    author: "Дмитрий Волков",
-    date: "11 июня 2026",
-    readTime: "4 мин",
-    image: null,
-    featured: false,
-    diggs: 1103,
-  },
-  {
-    id: 7,
-    category: "Бизнес",
-    title: "Стартапы в сфере климатических технологий привлекли рекордные инвестиции",
-    excerpt: "Объём вложений в cleantech превысил $50 млрд за первые шесть месяцев года, что вдвое больше показателей прошлого года.",
-    author: "Наталья Борисова",
-    date: "11 июня 2026",
-    readTime: "3 мин",
-    image: null,
-    featured: false,
-    diggs: 378,
-  },
-  {
-    id: 8,
-    category: "Технологии",
-    title: "Браузер без JavaScript: эксперимент или будущее веба?",
-    excerpt: "Новая концепция браузера возвращает к истокам веба, предлагая молниеносную скорость загрузки и полную конфиденциальность без скриптов.",
-    author: "Антон Лебедев",
-    date: "10 июня 2026",
-    readTime: "5 мин",
-    image: null,
-    featured: false,
-    diggs: 712,
-  },
-];
-
-const CATEGORY_COLORS: Record<string, string> = {
-  "Технологии": "bg-blue-50 text-blue-700",
-  "Наука": "bg-emerald-50 text-emerald-700",
-  "Бизнес": "bg-amber-50 text-amber-700",
-  "Культура": "bg-purple-50 text-purple-700",
-  "Спорт": "bg-red-50 text-red-700",
-};
+import { NEWS, CATEGORIES, CATEGORY_COLORS, type NewsItem } from "@/data/news";
 
 function DiggCount({ count }: { count: number }) {
   const [digged, setDigged] = useState(false);
@@ -137,7 +30,7 @@ function DiggCount({ count }: { count: number }) {
   );
 }
 
-function NewsCard({ item, index }: { item: (typeof NEWS)[0]; index: number }) {
+function NewsCard({ item, index }: { item: NewsItem; index: number }) {
   const colorClass = CATEGORY_COLORS[item.category] || "bg-gray-50 text-gray-700";
 
   return (
@@ -155,10 +48,12 @@ function NewsCard({ item, index }: { item: (typeof NEWS)[0]; index: number }) {
             <span className="text-xs text-muted-foreground">·</span>
             <span className="text-xs text-muted-foreground font-mono">{item.readTime}</span>
           </div>
-          <h2 className="text-base font-semibold leading-snug mb-2 group-hover:text-accent transition-colors duration-150 story-link">
-            {item.title}
-          </h2>
-          <p className="text-sm text-muted-foreground leading-relaxed mb-3 line-clamp-2">
+          <Link to={`/news/${item.id}`}>
+            <h2 className="text-base font-semibold leading-snug mb-2 group-hover:text-accent transition-colors duration-150 story-link inline">
+              {item.title}
+            </h2>
+          </Link>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-3 line-clamp-2 mt-2">
             {item.excerpt}
           </p>
           <div className="flex items-center justify-between">
@@ -167,25 +62,26 @@ function NewsCard({ item, index }: { item: (typeof NEWS)[0]; index: number }) {
           </div>
         </div>
         {item.image && (
-          <div className="flex-shrink-0 w-28 h-20 md:w-36 md:h-24 rounded overflow-hidden bg-muted">
+          <Link to={`/news/${item.id}`} className="flex-shrink-0 w-28 h-20 md:w-36 md:h-24 rounded overflow-hidden bg-muted">
             <img
               src={item.image}
               alt={item.title}
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
-          </div>
+          </Link>
         )}
       </div>
     </article>
   );
 }
 
-function FeaturedCard({ item }: { item: (typeof NEWS)[0] }) {
+function FeaturedCard({ item }: { item: NewsItem }) {
   const [digged, setDigged] = useState(false);
   const [num, setNum] = useState(item.diggs);
 
   return (
     <article className="animate-fade-in cursor-pointer group mb-8">
+      <Link to={`/news/${item.id}`}>
       <div className="relative overflow-hidden rounded-lg bg-foreground text-primary-foreground">
         {item.image && (
           <div className="absolute inset-0">
@@ -234,6 +130,7 @@ function FeaturedCard({ item }: { item: (typeof NEWS)[0] }) {
           </div>
         </div>
       </div>
+      </Link>
     </article>
   );
 }
@@ -258,12 +155,12 @@ export default function Index() {
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
         <div className="max-w-5xl mx-auto px-4 md:px-6">
           <div className="flex items-center justify-between h-14">
-            <a href="#" className="flex items-center gap-2 group">
+            <Link to="/" className="flex items-center gap-2 group">
               <div className="w-7 h-7 bg-foreground rounded-sm flex items-center justify-center group-hover:bg-accent transition-colors duration-200">
                 <Icon name="Zap" size={14} className="text-primary-foreground" />
               </div>
               <span className="text-lg font-bold tracking-tight">НОВОСТИ</span>
-            </a>
+            </Link>
 
             <nav className="hidden md:flex items-center gap-1">
               {CATEGORIES.slice(1).map((cat) => (
@@ -388,7 +285,7 @@ export default function Index() {
               </h3>
               <div className="space-y-0">
                 {[...NEWS].sort((a, b) => b.diggs - a.diggs).slice(0, 5).map((item, i) => (
-                  <a key={item.id} href="#" className="flex items-start gap-3 py-3 border-b border-border last:border-0 group">
+                  <Link key={item.id} to={`/news/${item.id}`} className="flex items-start gap-3 py-3 border-b border-border last:border-0 group">
                     <span className="text-2xl font-black text-border group-hover:text-muted-foreground transition-colors leading-none mt-0.5 min-w-[2rem]">
                       {String(i + 1).padStart(2, "0")}
                     </span>
@@ -400,7 +297,7 @@ export default function Index() {
                         {item.category}
                       </span>
                     </div>
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
