@@ -1,13 +1,44 @@
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import SiteHeader from "@/components/SiteHeader";
-import { VIDEOS, VIDEO_DESC } from "@/data/news";
+import { VIDEOS, VIDEO_DESC, type VideoItem } from "@/data/news";
+
+function NavButton({ video, side }: { video: VideoItem; side: "prev" | "next" }) {
+  const isPrev = side === "prev";
+  return (
+    <Link
+      to={`/videos/${video.id}`}
+      className="group hidden xl:flex flex-col items-center w-40 flex-shrink-0 pt-2"
+      title={isPrev ? "Предыдущее видео" : "Следующее видео"}
+    >
+      {/* Mini preview as a button */}
+      <div className="relative w-full rounded-lg overflow-hidden bg-muted aspect-video border border-border group-hover:border-foreground transition-colors">
+        <img src={video.thumb} alt={video.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="w-9 h-9 rounded-full bg-background/90 border border-border flex items-center justify-center group-hover:bg-accent group-hover:text-white group-hover:scale-110 transition-all">
+            <Icon name={isPrev ? "ChevronLeft" : "ChevronRight"} size={18} />
+          </span>
+        </div>
+        <span className="absolute bottom-1 right-1 bg-black/80 text-white text-[10px] font-mono px-1 rounded">{video.duration}</span>
+      </div>
+      <span className="text-[11px] font-mono uppercase tracking-wide text-muted-foreground mt-2">
+        {isPrev ? "Предыдущее" : "Следующее"}
+      </span>
+      <p className="text-xs font-medium text-center leading-snug line-clamp-2 mt-1 group-hover:text-accent transition-colors">
+        {video.title}
+      </p>
+    </Link>
+  );
+}
 
 export default function VideoDetail() {
   const { id } = useParams();
-  const item = VIDEOS.find((v) => v.id === Number(id));
+  const navigate = useNavigate();
   const [playing, setPlaying] = useState(false);
+
+  const index = VIDEOS.findIndex((v) => v.id === Number(id));
+  const item = VIDEOS[index];
 
   if (!item) {
     return (
@@ -18,15 +49,20 @@ export default function VideoDetail() {
     );
   }
 
-  const more = VIDEOS.filter((v) => v.id !== item.id).slice(0, 4);
+  // Соседние видео (по кругу)
+  const prev = VIDEOS[(index - 1 + VIDEOS.length) % VIDEOS.length];
+  const next = VIDEOS[(index + 1) % VIDEOS.length];
 
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <main className="max-w-5xl mx-auto px-4 md:px-6 py-6 animate-fade-in">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Player + info */}
-          <div className="lg:col-span-2">
+      <main className="max-w-6xl mx-auto px-4 md:px-6 py-6 animate-fade-in">
+        <div className="flex items-start justify-center gap-5">
+          {/* Prev */}
+          <NavButton video={prev} side="prev" />
+
+          {/* Center column */}
+          <div className="w-full max-w-3xl">
             {/* Player */}
             <div className="relative rounded-xl overflow-hidden bg-black aspect-video mb-4">
               <img
@@ -79,27 +115,34 @@ export default function VideoDetail() {
             <div className="py-4 text-sm leading-relaxed text-foreground/90">
               {item.description || VIDEO_DESC}
             </div>
+
+            {/* Mobile prev/next (когда боковые кнопки скрыты) */}
+            <div className="grid grid-cols-2 gap-3 xl:hidden mt-2">
+              <button
+                onClick={() => navigate(`/videos/${prev.id}`)}
+                className="flex items-center gap-2 border border-border rounded-lg p-2 hover:border-foreground transition-colors text-left"
+              >
+                <Icon name="ChevronLeft" size={18} className="text-muted-foreground flex-shrink-0" />
+                <div className="relative w-16 h-10 flex-shrink-0 rounded overflow-hidden bg-muted">
+                  <img src={prev.thumb} alt="" className="w-full h-full object-cover" />
+                </div>
+                <span className="text-xs font-medium line-clamp-2">{prev.title}</span>
+              </button>
+              <button
+                onClick={() => navigate(`/videos/${next.id}`)}
+                className="flex items-center gap-2 border border-border rounded-lg p-2 hover:border-foreground transition-colors text-right"
+              >
+                <span className="text-xs font-medium line-clamp-2">{next.title}</span>
+                <div className="relative w-16 h-10 flex-shrink-0 rounded overflow-hidden bg-muted">
+                  <img src={next.thumb} alt="" className="w-full h-full object-cover" />
+                </div>
+                <Icon name="ChevronRight" size={18} className="text-muted-foreground flex-shrink-0" />
+              </button>
+            </div>
           </div>
 
-          {/* Up next */}
-          <aside className="space-y-4">
-            <h3 className="text-xs font-mono text-muted-foreground uppercase tracking-widest pb-2 border-b border-border">
-              Смотреть далее
-            </h3>
-            {more.map((v) => (
-              <Link key={v.id} to={`/videos/${v.id}`} className="flex gap-3 group">
-                <div className="relative w-32 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-muted">
-                  <img src={v.thumb} alt={v.title} className="w-full h-full object-cover" />
-                  <span className="absolute bottom-1 right-1 bg-black/80 text-white text-[10px] font-mono px-1 rounded">{v.duration}</span>
-                </div>
-                <div className="min-w-0">
-                  <p className="text-sm font-medium leading-snug line-clamp-2 group-hover:text-accent transition-colors">{v.title}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{v.channel}</p>
-                  <p className="text-xs text-muted-foreground font-mono">{v.views} просмотров</p>
-                </div>
-              </Link>
-            ))}
-          </aside>
+          {/* Next */}
+          <NavButton video={next} side="next" />
         </div>
       </main>
     </div>
