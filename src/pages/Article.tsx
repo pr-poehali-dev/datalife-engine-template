@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
+import { toast } from "sonner";
 import { NEWS, CATEGORY_COLORS, COMMENTS, type Comment } from "@/data/news";
 
 function CommentForm({ onAdd }: { onAdd: (text: string) => void }) {
@@ -103,6 +104,24 @@ export default function Article() {
     else { setDigged(false); setNum((n) => n - 1); }
   };
 
+  const handleShare = async () => {
+    const url = window.location.href;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: item.title, text: item.excerpt, url });
+        return;
+      } catch {
+        // пользователь закрыл диалог — продолжаем к копированию
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      toast.success("Ссылка скопирована");
+    } catch {
+      toast.error("Не удалось скопировать ссылку");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -165,7 +184,10 @@ export default function Article() {
             >
               <Icon name="Bookmark" size={15} className={bookmarked ? "fill-current" : ""} />
             </button>
-            <button className="w-9 h-9 flex items-center justify-center rounded border border-border hover:border-foreground text-muted-foreground transition-all">
+            <button
+              onClick={handleShare}
+              className="w-9 h-9 flex items-center justify-center rounded border border-border hover:border-foreground text-muted-foreground hover:text-foreground transition-all"
+            >
               <Icon name="Share2" size={15} />
             </button>
           </div>
