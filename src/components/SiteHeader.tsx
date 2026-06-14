@@ -7,7 +7,7 @@ export default function SiteHeader() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+    <header className="sticky top-0 z-50 bg-background/70 backdrop-blur-xl border-b border-border/60">
       <div className="max-w-5xl mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between h-14">
           <LogoMenu />
