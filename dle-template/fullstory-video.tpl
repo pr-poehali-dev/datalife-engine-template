@@ -2,9 +2,16 @@
      fullstory-video.tpl — страница ВИДЕОРОЛИКА с плеером
      Привязка: Категории → Видеоролики →
      "Шаблон full-story" = video
+     Сайдбар убран. По бокам — переходы на пред./след. ролик.
      ============================================================ -->
-<div class="video-page">
-    <div class="video-main">
+<div class="video-page-single">
+    <!-- Предыдущее видео (кнопка-минипревью слева) -->
+    <div class="video-nav-side video-nav-prev">
+        {prev-news}
+    </div>
+
+    <!-- Центральная колонка -->
+    <div class="video-center">
         <!-- Плеер: ссылка/код видео хранится в доп. поле {xfvalue_video} -->
         <div class="video-player">
             {xfvalue_video}
@@ -32,6 +39,12 @@
         <!-- Описание -->
         <div class="video-description">{full-story}</div>
 
+        <!-- Мобильная навигация пред./след. -->
+        <div class="video-nav-mobile">
+            <div class="video-nav-m-prev">{prev-news}</div>
+            <div class="video-nav-m-next">{next-news}</div>
+        </div>
+
         <!-- Комментарии DLE -->
         <section class="comments-section">
             {addcomments}
@@ -39,9 +52,8 @@
         </section>
     </div>
 
-    <!-- Смотреть далее -->
-    <aside class="video-aside">
-        <h3 class="side-block-title">Смотреть далее</h3>
-        {related-news}
-    </aside>
+    <!-- Следующее видео (кнопка-минипревью справа) -->
+    <div class="video-nav-side video-nav-next">
+        {next-news}
+    </div>
 </div>
