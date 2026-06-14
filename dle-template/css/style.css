@@ -107,10 +107,78 @@ img {
   justify-content: space-between;
   height: 56px;
 }
+.logo-wrap {
+  position: relative;
+}
 .logo {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+.logo-chevron {
+  font-size: 12px;
+  color: var(--muted-foreground);
+  transition: transform 0.2s;
+}
+.logo-wrap:hover .logo-chevron {
+  transform: rotate(180deg);
+}
+
+/* Выпадающее меню логотипа */
+.logo-menu {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 8px;
+  width: 240px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  padding: 6px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: all 0.2s;
+  z-index: 60;
+}
+.logo-wrap:hover .logo-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.logo-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  transition: background 0.15s;
+}
+.logo-menu-item:hover {
+  background: var(--secondary);
+}
+.logo-menu-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  background: var(--secondary);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+.logo-menu-item b {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.logo-menu-item small {
+  display: block;
+  font-size: 12px;
+  color: var(--muted-foreground);
 }
 .logo-mark {
   width: 28px;

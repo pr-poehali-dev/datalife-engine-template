@@ -15,10 +15,28 @@
 <header class="site-header">
     <div class="wrap">
         <div class="header-inner">
-            <a href="{HOME}" class="logo">
-                <span class="logo-mark">⚡</span>
-                <span class="logo-text">НОВОСТИ</span>
-            </a>
+            <!-- Логотип с выпадающим меню -->
+            <div class="logo-wrap">
+                <a href="{HOME}" class="logo">
+                    <span class="logo-mark">⚡</span>
+                    <span class="logo-text">НОВОСТИ</span>
+                    <span class="logo-chevron">▾</span>
+                </a>
+                <div class="logo-menu">
+                    <a href="{HOME}" class="logo-menu-item">
+                        <span class="logo-menu-icon">📰</span>
+                        <span><b>Новости</b><small>Свежие материалы</small></span>
+                    </a>
+                    <a href="{HOME}index.php?do=cat&category=video" class="logo-menu-item">
+                        <span class="logo-menu-icon">▶️</span>
+                        <span><b>Видеоролики</b><small>Видео и обзоры</small></span>
+                    </a>
+                    <a href="{HOME}index.php?do=cat&category=games" class="logo-menu-item">
+                        <span class="logo-menu-icon">🎮</span>
+                        <span><b>Видеоигры</b><small>Гейминг и новинки</small></span>
+                    </a>
+                </div>
+            </div>
 
             <!-- Навигация по категориям DLE -->
             <nav class="main-nav">
