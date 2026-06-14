@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
+import { useTheme } from "@/hooks/use-theme";
 import { NEWS, CATEGORIES, CATEGORY_COLORS, type NewsItem } from "@/data/news";
 
 function DiggCount({ count }: { count: number }) {
@@ -139,6 +140,7 @@ export default function Index() {
   const [activeCategory, setActiveCategory] = useState("Все");
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const { theme, toggleTheme } = useTheme();
 
   const featured = NEWS.find((n) => n.featured)!;
   const filtered = NEWS.filter((n) => !n.featured)
@@ -216,6 +218,13 @@ export default function Index() {
               >
                 <Icon name="Plus" size={14} />
                 Добавить
+              </button>
+              <button
+                onClick={toggleTheme}
+                aria-label="Сменить тему"
+                className="w-8 h-8 flex-shrink-0 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors rounded hover:bg-secondary"
+              >
+                <Icon name={theme === "dark" ? "Sun" : "Moon"} size={16} />
               </button>
               <button className="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-full bg-secondary text-secondary-foreground hover:bg-muted transition-colors text-sm font-semibold">
                 А

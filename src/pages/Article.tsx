@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import { toast } from "sonner";
+import { useTheme } from "@/hooks/use-theme";
 import { NEWS, CATEGORY_COLORS, COMMENTS, type Comment } from "@/data/news";
 
 function CommentForm({ onAdd }: { onAdd: (text: string) => void }) {
@@ -79,6 +80,7 @@ export default function Article() {
   const [num, setNum] = useState(item?.diggs ?? 0);
   const [bookmarked, setBookmarked] = useState(false);
   const [comments, setComments] = useState(COMMENTS);
+  const { theme, toggleTheme } = useTheme();
 
   if (!item) {
     return (
@@ -134,10 +136,19 @@ export default function Article() {
               </div>
               <span className="text-lg font-bold tracking-tight">НОВОСТИ</span>
             </Link>
-            <Link to="/" className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
-              <Icon name="ArrowLeft" size={15} />
-              К ленте
-            </Link>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={toggleTheme}
+                aria-label="Сменить тему"
+                className="w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors rounded hover:bg-secondary"
+              >
+                <Icon name={theme === "dark" ? "Sun" : "Moon"} size={16} />
+              </button>
+              <Link to="/" className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <Icon name="ArrowLeft" size={15} />
+                К ленте
+              </Link>
+            </div>
           </div>
         </div>
       </header>
