@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 
 const MENU_ITEMS = [
@@ -8,6 +8,16 @@ const MENU_ITEMS = [
 ];
 
 export default function LogoMenu() {
+  const location = useLocation();
+
+  // Определяем активный раздел по адресу страницы
+  const activeSection =
+    location.pathname.startsWith("/videos")
+      ? MENU_ITEMS[1]
+      : location.pathname.startsWith("/games")
+      ? MENU_ITEMS[2]
+      : null;
+
   return (
     <div className="relative group/logo">
       <Link to="/" className="flex items-center gap-2 group">
@@ -15,6 +25,13 @@ export default function LogoMenu() {
           <Icon name="Zap" size={14} className="text-primary-foreground" />
         </div>
         <span className="text-lg font-bold tracking-tight">НОВОСТИ</span>
+        {activeSection && (
+          <span className="flex items-center gap-1 text-sm font-medium text-muted-foreground animate-fade-in">
+            <span className="text-border">/</span>
+            <Icon name={activeSection.icon} size={13} className="text-accent" />
+            {activeSection.label}
+          </span>
+        )}
         <Icon
           name="ChevronDown"
           size={14}
