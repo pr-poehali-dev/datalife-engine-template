@@ -3,7 +3,12 @@
      Привязывается к категории "Видеоигры" в админке DLE
      (Категории → правка категории → "Шаблон short-story" = games)
      ============================================================ -->
-<article class="game-card">
+<article class="game-card"
+         data-title="{title}"
+         data-genre="{xfvalue_genre}"
+         data-platform="{xfvalue_platform}"
+         data-rating="{xfvalue_rating}"
+         data-id="{news-id}">
     <a href="{full-link}" class="game-cover">
         [thumb]{thumb-storyimage}[/thumb]
         <span class="game-overlay"></span>
