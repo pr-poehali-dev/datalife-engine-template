@@ -1131,6 +1131,40 @@ img {
   font-weight: 700;
 }
 
+/* ===== Подкатегории видео (теги) ===== */
+.video-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.video-tag {
+  font-size: 14px;
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.video-tag:hover {
+  border-color: var(--foreground);
+  color: var(--foreground);
+}
+.video-tag.active {
+  background: var(--foreground);
+  color: var(--primary-foreground, #fff);
+  border-color: var(--foreground);
+}
+.video-empty {
+  padding: 60px 0;
+  text-align: center;
+  color: var(--muted-foreground);
+  font-size: 14px;
+}
+
 /* ===== Сетка ВИДЕОРОЛИКОВ ===== */
 .videos-grid {
   display: grid;
