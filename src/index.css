@@ -123,6 +123,22 @@
   animation: fade-in 0.4s ease-out forwards;
 }
 
+/* Ambient light pulse (YouTube-style) */
+@keyframes ambient-pulse {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1.1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.16);
+  }
+}
+.ambient-pulse {
+  animation: ambient-pulse 6s ease-in-out infinite;
+}
+
 .animate-slide-in {
   animation: slide-in 0.3s ease-out forwards;
 }

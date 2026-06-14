@@ -63,31 +63,49 @@ export default function VideoDetail() {
 
           {/* Center column */}
           <div className="w-full max-w-3xl">
-            {/* Player */}
-            <div className="relative rounded-xl overflow-hidden bg-black aspect-video mb-4">
-              <img
-                src={item.thumb}
-                alt={item.title}
-                className={`w-full h-full object-cover transition-opacity duration-300 ${playing ? "opacity-40" : "opacity-100"}`}
-              />
-              {!playing ? (
-                <button
-                  onClick={() => setPlaying(true)}
-                  className="absolute inset-0 flex items-center justify-center group"
-                >
-                  <span className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Icon name="Play" size={28} className="text-black ml-1" />
-                  </span>
-                </button>
-              ) : (
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-white gap-2">
-                  <Icon name="Loader" size={28} className="animate-spin opacity-70" />
-                  <span className="text-xs font-mono opacity-70">Воспроизведение...</span>
-                </div>
-              )}
-              <span className="absolute bottom-3 right-3 bg-black/80 text-white text-xs font-mono px-2 py-0.5 rounded">
-                {item.duration}
-              </span>
+            {/* Player with ambient glow (YouTube-style) */}
+            <div className="relative mb-4">
+              {/* Ambient light: blurred copy of thumbnail behind the player */}
+              <div
+                aria-hidden
+                className={`pointer-events-none absolute -inset-6 md:-inset-10 -z-10 transition-opacity duration-700 ${
+                  playing ? "opacity-90" : "opacity-60"
+                }`}
+              >
+                <img
+                  src={item.thumb}
+                  alt=""
+                  className={`w-full h-full object-cover rounded-[40px] blur-3xl saturate-150 scale-110 ${
+                    playing ? "ambient-pulse" : ""
+                  }`}
+                />
+              </div>
+
+              <div className="relative rounded-xl overflow-hidden bg-black aspect-video ring-1 ring-white/5 shadow-2xl">
+                <img
+                  src={item.thumb}
+                  alt={item.title}
+                  className={`w-full h-full object-cover transition-opacity duration-300 ${playing ? "opacity-40" : "opacity-100"}`}
+                />
+                {!playing ? (
+                  <button
+                    onClick={() => setPlaying(true)}
+                    className="absolute inset-0 flex items-center justify-center group"
+                  >
+                    <span className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Icon name="Play" size={28} className="text-black ml-1" />
+                    </span>
+                  </button>
+                ) : (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-white gap-2">
+                    <Icon name="Loader" size={28} className="animate-spin opacity-70" />
+                    <span className="text-xs font-mono opacity-70">Воспроизведение...</span>
+                  </div>
+                )}
+                <span className="absolute bottom-3 right-3 bg-black/80 text-white text-xs font-mono px-2 py-0.5 rounded">
+                  {item.duration}
+                </span>
+              </div>
             </div>
 
             <h1 className="text-xl md:text-2xl font-bold leading-tight mb-2">{item.title}</h1>
