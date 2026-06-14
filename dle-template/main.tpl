@@ -20,6 +20,8 @@
                 <a href="{HOME}" class="logo">
                     <span class="logo-mark">⚡</span>
                     <span class="logo-text">НОВОСТИ</span>
+                    <!-- Название текущей категории рядом с логотипом -->
+                    [category]<span class="logo-category"><span class="logo-slash">/</span>{category}</span>[/category]
                     <span class="logo-chevron">▾</span>
                 </a>
                 <div class="logo-menu">

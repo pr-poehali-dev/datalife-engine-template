@@ -123,6 +123,19 @@ img {
 .logo-wrap:hover .logo-chevron {
   transform: rotate(180deg);
 }
+/* Название категории рядом с логотипом */
+.logo-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  animation: fade-in 0.3s ease-out forwards;
+}
+.logo-slash {
+  color: var(--border);
+}
 
 /* Выпадающее меню логотипа */
 .logo-menu {
