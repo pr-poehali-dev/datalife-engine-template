@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import { useTheme } from "@/hooks/use-theme";
 import LogoMenu from "@/components/LogoMenu";
+import CommandPalette from "@/components/CommandPalette";
 import { NEWS, CATEGORIES, CATEGORY_COLORS, type NewsItem } from "@/data/news";
 
 function DiggCount({ count }: { count: number }) {
@@ -77,63 +78,61 @@ function NewsCard({ item, index }: { item: NewsItem; index: number }) {
   );
 }
 
-function FeaturedCard({ item }: { item: NewsItem }) {
-  const [digged, setDigged] = useState(false);
-  const [num, setNum] = useState(item.diggs);
-
+function BentoTile({ item, big = false }: { item: NewsItem; big?: boolean }) {
+  const colorClass = CATEGORY_COLORS[item.category] || "bg-gray-50 text-gray-700";
   return (
-    <article className="animate-fade-in cursor-pointer group mb-8">
-      <Link to={`/news/${item.id}`}>
-      <div className="relative overflow-hidden rounded-lg bg-foreground text-primary-foreground">
-        {item.image && (
-          <div className="absolute inset-0">
-            <img
-              src={item.image}
-              alt={item.title}
-              className="w-full h-full object-cover opacity-30 group-hover:opacity-40 transition-opacity duration-300"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-          </div>
-        )}
-        <div className="relative p-6 md:p-8 min-h-[280px] flex flex-col justify-end">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="category-tag px-2 py-0.5 rounded-sm bg-accent text-white">
-              {item.category}
-            </span>
-            <span className="text-xs text-white/60 font-mono">{item.date}</span>
-            <span className="text-xs text-white/60">·</span>
-            <span className="text-xs text-white/60 font-mono">{item.readTime}</span>
-          </div>
-          <h1 className="text-2xl md:text-3xl font-bold leading-tight mb-3 group-hover:text-white/90 transition-colors">
-            {item.title}
-          </h1>
-          <p className="text-sm text-white/70 leading-relaxed mb-4 max-w-2xl line-clamp-2">
-            {item.excerpt}
-          </p>
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-white/50">{item.author}</span>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                if (!digged) { setDigged(true); setNum(n => n + 1); }
-                else { setDigged(false); setNum(n => n - 1); }
-              }}
-              className={`flex items-center gap-1.5 text-xs font-mono transition-all duration-200 ${
-                digged ? "text-orange-400" : "text-white/60 hover:text-white"
-              }`}
-            >
-              <span className={`w-6 h-6 rounded-full border flex items-center justify-center transition-all ${
-                digged ? "bg-orange-400 border-orange-400 text-white" : "border-white/40"
-              }`}>
-                <Icon name="ArrowUp" size={11} />
-              </span>
-              {num.toLocaleString("ru")}
-            </button>
-          </div>
+    <Link
+      to={`/news/${item.id}`}
+      className={`group relative overflow-hidden rounded-xl bg-foreground text-primary-foreground ${
+        big ? "md:row-span-2 min-h-[260px] md:min-h-[420px]" : "min-h-[200px]"
+      }`}
+    >
+      {item.image ? (
+        <>
+          <img
+            src={item.image}
+            alt={item.title}
+            className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-60 group-hover:scale-105 transition-all duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+        </>
+      ) : (
+        <div className="absolute inset-0 bg-gradient-to-br from-foreground to-secondary opacity-90" />
+      )}
+      <div className={`relative h-full flex flex-col justify-end ${big ? "p-6 md:p-7" : "p-5"}`}>
+        <span className={`category-tag self-start px-2 py-0.5 rounded-sm mb-2 ${big ? "bg-accent text-white" : colorClass}`}>
+          {item.category}
+        </span>
+        <h3 className={`font-bold leading-tight group-hover:text-white/90 transition-colors ${big ? "text-xl md:text-2xl" : "text-base"} line-clamp-3`}>
+          {item.title}
+        </h3>
+        <div className="flex items-center gap-2 mt-2 text-white/60 text-xs font-mono">
+          <span>{item.date}</span>
+          <span>·</span>
+          <span className="flex items-center gap-1"><Icon name="ArrowUp" size={11} />{item.diggs.toLocaleString("ru")}</span>
         </div>
       </div>
-      </Link>
-    </article>
+    </Link>
+  );
+}
+
+function BentoSection({ items }: { items: NewsItem[] }) {
+  const [big, ...rest] = items;
+  if (!big) return null;
+  return (
+    <section className="mb-8 animate-fade-in">
+      <h2 className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-3">
+        Главное сейчас
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4">
+        <div className="md:col-span-2 md:row-span-2">
+          <BentoTile item={big} big />
+        </div>
+        {rest.slice(0, 2).map((it) => (
+          <BentoTile key={it.id} item={it} />
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -215,6 +214,7 @@ export default function Index() {
                 <Icon name="Plus" size={14} />
                 Добавить
               </button>
+              <CommandPalette />
               <button
                 onClick={toggleTheme}
                 aria-label="Сменить тему"
@@ -269,13 +269,14 @@ export default function Index() {
 
       {/* Main */}
       <main className="max-w-5xl mx-auto px-4 md:px-6 py-6">
+        {/* Bento-сетка «Главное сейчас» */}
+        {activeCategory === "Все" && !searchValue && (
+          <BentoSection items={[featured, ...NEWS.filter((n) => !n.featured)]} />
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Feed */}
           <div className="lg:col-span-2">
-            {(activeCategory === "Все" || activeCategory === featured.category) && !searchValue && (
-              <FeaturedCard item={featured} />
-            )}
-
             <div className="flex items-center justify-between mb-1">
               <h2 className="text-xs font-mono text-muted-foreground uppercase tracking-widest">
                 {activeCategory === "Все" ? "Последние новости" : activeCategory}

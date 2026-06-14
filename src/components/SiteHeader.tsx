@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import { useTheme } from "@/hooks/use-theme";
 import LogoMenu from "@/components/LogoMenu";
+import CommandPalette from "@/components/CommandPalette";
 
 export default function SiteHeader() {
   const { theme, toggleTheme } = useTheme();
@@ -12,6 +13,7 @@ export default function SiteHeader() {
         <div className="flex items-center justify-between h-14">
           <LogoMenu />
           <div className="flex items-center gap-3">
+            <CommandPalette />
             <button
               onClick={toggleTheme}
               aria-label="Сменить тему"

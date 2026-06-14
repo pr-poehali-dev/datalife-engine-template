@@ -83,6 +83,35 @@ export default function Article() {
   const [comments, setComments] = useState(COMMENTS);
   const { theme, toggleTheme } = useTheme();
 
+  // Реакции эмодзи
+  const REACTIONS = ["🔥", "😍", "😮", "👏", "🤔"];
+  const [reactions, setReactions] = useState<Record<string, number>>({
+    "🔥": 42, "😍": 18, "😮": 9, "👏": 24, "🤔": 6,
+  });
+  const [myReaction, setMyReaction] = useState<string | null>(null);
+
+  const react = (emoji: string) => {
+    setReactions((prev) => {
+      const next = { ...prev };
+      if (myReaction === emoji) {
+        next[emoji] -= 1;
+        setMyReaction(null);
+      } else {
+        if (myReaction) next[myReaction] -= 1;
+        next[emoji] += 1;
+        setMyReaction(emoji);
+      }
+      return next;
+    });
+  };
+
+  // AI-саммари
+  const [summaryState, setSummaryState] = useState<"idle" | "loading" | "done">("idle");
+  const runSummary = () => {
+    setSummaryState("loading");
+    setTimeout(() => setSummaryState("done"), 1400);
+  };
+
   if (!item) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4">
@@ -94,6 +123,13 @@ export default function Article() {
 
   const colorClass = CATEGORY_COLORS[item.category] || "bg-gray-50 text-gray-700";
   const related = NEWS.filter((n) => n.id !== item.id && n.category === item.category).slice(0, 3);
+
+  // Тезисы для AI-саммари (из текста статьи)
+  const summaryPoints = [
+    item.excerpt,
+    "Эксперты отмечают значимость события для отрасли в долгосрочной перспективе.",
+    "Подробный отчёт с методологией ожидается в ближайшие месяцы.",
+  ];
 
   const addComment = (text: string) => {
     setComments((prev) => [
@@ -184,12 +220,21 @@ export default function Article() {
               {num.toLocaleString("ru")}
             </button>
             <button
-              onClick={() => setBookmarked((b) => !b)}
-              className={`w-9 h-9 flex items-center justify-center rounded border transition-all ${
+              onClick={() => {
+                setBookmarked((b) => {
+                  const nb = !b;
+                  toast(nb ? "Добавлено в «Читать позже»" : "Удалено из «Читать позже»", {
+                    icon: nb ? "🔖" : undefined,
+                  });
+                  return nb;
+                });
+              }}
+              className={`flex items-center gap-1.5 px-3 h-9 rounded border transition-all text-sm ${
                 bookmarked ? "bg-foreground border-foreground text-primary-foreground" : "border-border hover:border-foreground text-muted-foreground"
               }`}
             >
               <Icon name="Bookmark" size={15} className={bookmarked ? "fill-current" : ""} />
+              <span className="hidden sm:inline">{bookmarked ? "В списке" : "Читать позже"}</span>
             </button>
             <button
               onClick={handleShare}
@@ -207,11 +252,84 @@ export default function Article() {
           </div>
         )}
 
+        {/* AI-саммари */}
+        <div className="mb-8 rounded-xl border border-border bg-gradient-to-br from-accent/5 to-transparent overflow-hidden">
+          <div className="flex items-center justify-between p-4">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-orange-600 flex items-center justify-center">
+                <Icon name="Sparkles" size={16} className="text-white" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold">Пересказ за 10 секунд</p>
+                <p className="text-xs text-muted-foreground">Краткая выжимка статьи</p>
+              </div>
+            </div>
+            {summaryState === "idle" && (
+              <button
+                onClick={runSummary}
+                className="text-sm bg-foreground text-primary-foreground px-4 py-2 rounded-lg hover:bg-accent transition-colors flex items-center gap-1.5"
+              >
+                <Icon name="Wand2" size={14} />
+                Пересказать
+              </button>
+            )}
+            {summaryState === "loading" && (
+              <span className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Icon name="Loader2" size={16} className="animate-spin" />
+                Анализирую...
+              </span>
+            )}
+          </div>
+          {summaryState === "done" && (
+            <div className="px-4 pb-4 animate-fade-in">
+              <ul className="space-y-2">
+                {summaryPoints.map((p, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-foreground/90">
+                    <Icon name="Check" size={15} className="text-accent mt-0.5 flex-shrink-0" />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+              <p className="text-[11px] text-muted-foreground font-mono mt-3 flex items-center gap-1">
+                <Icon name="Sparkles" size={11} /> Сгенерировано ИИ · может содержать неточности
+              </p>
+            </div>
+          )}
+        </div>
+
         {/* Body */}
         <div className="prose-content space-y-5 mb-10">
           {item.content?.map((para, i) => (
             <p key={i} className="text-base leading-relaxed text-foreground/90">{para}</p>
           ))}
+        </div>
+
+        {/* Реакции */}
+        <div className="mb-8">
+          <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-3">
+            Ваша реакция
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {REACTIONS.map((emoji) => {
+              const active = myReaction === emoji;
+              return (
+                <button
+                  key={emoji}
+                  onClick={() => react(emoji)}
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all duration-150 ${
+                    active
+                      ? "bg-accent/10 border-accent scale-105"
+                      : "border-border hover:border-foreground hover:scale-105"
+                  }`}
+                >
+                  <span className="text-lg leading-none">{emoji}</span>
+                  <span className={`text-sm font-mono ${active ? "text-accent font-semibold" : "text-muted-foreground"}`}>
+                    {reactions[emoji]}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Tags */}
