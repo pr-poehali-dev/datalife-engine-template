@@ -249,6 +249,24 @@ export default function Index() {
         </div>
       </div>
 
+      {/* Tags bar (под навигацией) */}
+      <div className="border-b border-border bg-background">
+        <div className="max-w-5xl mx-auto px-4 md:px-6 py-2.5 flex items-center gap-2 overflow-x-auto">
+          <span className="text-xs font-mono text-muted-foreground uppercase tracking-wide flex-shrink-0">
+            Теги:
+          </span>
+          {["ИИ", "Стартапы", "Космос", "Климат", "Крипто", "Биотех", "Робототехника", "Квантум", "Кибербез"].map((tag) => (
+            <a
+              key={tag}
+              href="#"
+              className="text-xs whitespace-nowrap px-2.5 py-1 bg-secondary text-secondary-foreground rounded-sm hover:bg-foreground hover:text-primary-foreground transition-all duration-150 flex-shrink-0"
+            >
+              #{tag}
+            </a>
+          ))}
+        </div>
+      </div>
+
       {/* Main */}
       <main className="max-w-5xl mx-auto px-4 md:px-6 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -329,19 +347,6 @@ export default function Index() {
               <button className="w-full text-sm bg-accent text-white py-2 rounded hover:bg-orange-600 transition-colors font-medium">
                 Подписаться
               </button>
-            </div>
-
-            <div>
-              <h3 className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-3 pb-2 border-b border-border">
-                Теги
-              </h3>
-              <div className="flex flex-wrap gap-1.5">
-                {["ИИ", "Стартапы", "Космос", "Климат", "Крипто", "Биотех", "Робототехника", "Квантум", "Кибербез"].map((tag) => (
-                  <a key={tag} href="#" className="text-xs px-2.5 py-1 bg-secondary text-secondary-foreground rounded-sm hover:bg-foreground hover:text-primary-foreground transition-all duration-150">
-                    #{tag}
-                  </a>
-                ))}
-              </div>
             </div>
           </aside>
         </div>
