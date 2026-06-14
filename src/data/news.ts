@@ -136,6 +136,46 @@ export const NEWS: NewsItem[] = [
   },
 ];
 
+// ===== Видеоролики =====
+export interface VideoItem {
+  id: number;
+  title: string;
+  channel: string;
+  duration: string;
+  views: string;
+  date: string;
+  thumb: string;
+}
+
+export const VIDEOS: VideoItem[] = [
+  { id: 1, title: "Обзор нейросети нового поколения: тест на реальных задачах", channel: "TechReview", duration: "12:48", views: "248K", date: "2 дня назад", thumb: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/2b0136ea-0d0c-477f-9292-35ee9bdb61ee.jpg" },
+  { id: 2, title: "Как собрать ПК мечты в 2026 году — полный гайд", channel: "Hardware Lab", duration: "24:15", views: "512K", date: "5 дней назад", thumb: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/2b0136ea-0d0c-477f-9292-35ee9bdb61ee.jpg" },
+  { id: 3, title: "Интервью с основателем стартапа года", channel: "Бизнес+", duration: "08:32", views: "97K", date: "неделю назад", thumb: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/81ca01a0-b330-4482-851a-793e8a8da74a.jpg" },
+  { id: 4, title: "Первый полёт нового марсохода — кадры с орбиты", channel: "Космос ТВ", duration: "15:07", views: "1.2M", date: "3 дня назад", thumb: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/b905cbf4-117a-4f9b-81c5-2c939dc28205.jpg" },
+  { id: 5, title: "Топ-10 технологий, которые изменят будущее", channel: "Futurology", duration: "18:44", views: "356K", date: "4 дня назад", thumb: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/2b0136ea-0d0c-477f-9292-35ee9bdb61ee.jpg" },
+  { id: 6, title: "Разбор архитектуры квантового компьютера", channel: "SciDeep", duration: "31:20", views: "184K", date: "6 дней назад", thumb: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/b905cbf4-117a-4f9b-81c5-2c939dc28205.jpg" },
+];
+
+// ===== Видеоигры =====
+export interface GameItem {
+  id: number;
+  title: string;
+  genre: string;
+  platform: string;
+  rating: number;
+  date: string;
+  cover: string;
+}
+
+export const GAMES: GameItem[] = [
+  { id: 1, title: "Neon Horizon", genre: "Экшен / RPG", platform: "PC, PS5, Xbox", rating: 9.4, date: "Релиз: июнь 2026", cover: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/287febea-448b-464e-922c-90bf890f1fdd.jpg" },
+  { id: 2, title: "Quantum Drift", genre: "Гонки", platform: "PC, PS5", rating: 8.7, date: "Релиз: май 2026", cover: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/287febea-448b-464e-922c-90bf890f1fdd.jpg" },
+  { id: 3, title: "Echoes of Mars", genre: "Стратегия", platform: "PC", rating: 9.1, date: "Релиз: июль 2026", cover: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/287febea-448b-464e-922c-90bf890f1fdd.jpg" },
+  { id: 4, title: "Cyber Nexus", genre: "Шутер", platform: "PC, Xbox", rating: 8.2, date: "Релиз: апрель 2026", cover: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/287febea-448b-464e-922c-90bf890f1fdd.jpg" },
+  { id: 5, title: "Pixel Kingdom", genre: "Платформер", platform: "Switch, PC", rating: 8.9, date: "Релиз: июнь 2026", cover: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/287febea-448b-464e-922c-90bf890f1fdd.jpg" },
+  { id: 6, title: "Void Protocol", genre: "Хоррор", platform: "PC, PS5", rating: 7.8, date: "Релиз: октябрь 2026", cover: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/287febea-448b-464e-922c-90bf890f1fdd.jpg" },
+];
+
 export interface Comment {
   id: number;
   author: string;

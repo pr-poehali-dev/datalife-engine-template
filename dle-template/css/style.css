@@ -1102,6 +1102,196 @@ img {
   background: var(--secondary);
 }
 
+/* ===== Заголовок страницы категории ===== */
+.cat-page-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.cat-page-title .ico {
+  font-size: 20px;
+  color: var(--accent);
+}
+.cat-page-title h1 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* ===== Сетка ВИДЕОРОЛИКОВ ===== */
+.videos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px 20px;
+}
+.video-card {
+  animation: fade-in 0.4s ease-out forwards;
+}
+.video-thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--muted);
+  margin-bottom: 12px;
+}
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.video-card:hover .video-thumb img {
+  transform: scale(1.05);
+}
+.video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-size: 16px;
+  opacity: 0;
+  transition: all 0.2s;
+}
+.video-card:hover .video-play {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+.video-duration {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: var(--radius);
+}
+.video-title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  margin-bottom: 6px;
+  transition: color 0.15s;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.video-card:hover .video-title {
+  color: var(--accent);
+}
+.video-channel {
+  font-size: 12px;
+  color: var(--muted-foreground);
+}
+.video-stats {
+  font-size: 12px;
+  color: var(--muted-foreground);
+  font-family: "IBM Plex Mono", monospace;
+  margin-top: 2px;
+}
+
+/* ===== Сетка ВИДЕОИГР ===== */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.game-card {
+  animation: fade-in 0.4s ease-out forwards;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--card);
+  transition: box-shadow 0.2s;
+}
+.game-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+.game-cover {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--muted);
+}
+.game-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.game-card:hover .game-cover img {
+  transform: scale(1.05);
+}
+.game-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent 35%);
+}
+.game-rating {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #16a34a;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius);
+}
+.game-genre {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: var(--radius);
+  backdrop-filter: blur(4px);
+}
+.game-info {
+  padding: 12px;
+}
+.game-title {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 4px;
+  transition: color 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.game-card:hover .game-title {
+  color: var(--accent);
+}
+.game-platform {
+  font-size: 12px;
+  color: var(--muted-foreground);
+}
+.game-date {
+  font-size: 12px;
+  color: var(--muted-foreground);
+  font-family: "IBM Plex Mono", monospace;
+  margin-top: 4px;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 900px) {
   .layout {
@@ -1118,5 +1308,19 @@ img {
   }
   .featured-content h1 {
     font-size: 22px;
+  }
+  .videos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .games-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 560px) {
+  .videos-grid {
+    grid-template-columns: 1fr;
+  }
+  .games-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

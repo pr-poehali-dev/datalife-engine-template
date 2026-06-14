@@ -3,8 +3,8 @@ import Icon from "@/components/ui/icon";
 
 const MENU_ITEMS = [
   { label: "Новости", to: "/", icon: "Newspaper", desc: "Свежие материалы" },
-  { label: "Видеоролики", to: "/", icon: "Play", desc: "Видео и обзоры" },
-  { label: "Видеоигры", to: "/", icon: "Gamepad2", desc: "Гейминг и новинки" },
+  { label: "Видеоролики", to: "/videos", icon: "Play", desc: "Видео и обзоры" },
+  { label: "Видеоигры", to: "/games", icon: "Gamepad2", desc: "Гейминг и новинки" },
 ];
 
 export default function LogoMenu() {
