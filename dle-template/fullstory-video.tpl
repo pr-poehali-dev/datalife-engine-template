@@ -12,10 +12,14 @@
 
     <!-- Центральная колонка -->
     <div class="video-center">
-        <!-- Плеер: ссылка/код видео хранится в доп. поле {xfvalue_video} -->
-        <div class="video-player">
-            {xfvalue_video}
-            [not-xfvalue_video][thumb]{thumb-storyimage}[/thumb][/not-xfvalue_video]
+        <!-- Плеер с амбиентным свечением (как на YouTube) -->
+        <div class="video-stage">
+            <!-- Размытая копия превью создаёт цветное свечение за плеером -->
+            [thumb]<div class="video-glow" style="background-image:url({thumb-url})"></div>[/thumb]
+            <div class="video-player">
+                {xfvalue_video}
+                [not-xfvalue_video][thumb]{thumb-storyimage}[/thumb][/not-xfvalue_video]
+            </div>
         </div>
 
         <h1 class="video-page-title">{title}</h1>

@@ -1681,13 +1681,42 @@ img {
   text-align: right;
 }
 
+/* Амбиентное свечение (как на YouTube) */
+.video-stage {
+  position: relative;
+  margin-bottom: 16px;
+}
+.video-glow {
+  position: absolute;
+  inset: -32px;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+  filter: blur(60px) saturate(1.6);
+  opacity: 0.6;
+  transform: scale(1.1);
+  border-radius: 40px;
+  animation: ambient-pulse 6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes ambient-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1.1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.16);
+  }
+}
 .video-player {
   position: relative;
   aspect-ratio: 16 / 9;
   border-radius: 12px;
   overflow: hidden;
   background: #000;
-  margin-bottom: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
 }
 .video-player img,
 .video-player iframe,
