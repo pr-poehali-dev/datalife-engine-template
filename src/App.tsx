@@ -9,7 +9,9 @@ import Article from "./pages/Article";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import Videos from "./pages/Videos";
+import VideoDetail from "./pages/VideoDetail";
 import Games from "./pages/Games";
+import GameDetail from "./pages/GameDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,7 +28,9 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/videos" element={<Videos />} />
+          <Route path="/videos/:id" element={<VideoDetail />} />
           <Route path="/games" element={<Games />} />
+          <Route path="/games/:id" element={<GameDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

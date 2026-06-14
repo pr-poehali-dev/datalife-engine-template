@@ -1,11 +1,13 @@
+import { Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import SiteHeader from "@/components/SiteHeader";
 import { VIDEOS, type VideoItem } from "@/data/news";
 
 function VideoCard({ item, index }: { item: VideoItem; index: number }) {
   return (
-    <article
-      className="news-card animate-fade-in group cursor-pointer"
+    <Link
+      to={`/videos/${item.id}`}
+      className="news-card animate-fade-in group cursor-pointer block"
       style={{ animationDelay: `${index * 60}ms`, opacity: 0 }}
     >
       {/* Thumbnail with play + duration */}
@@ -33,7 +35,7 @@ function VideoCard({ item, index }: { item: VideoItem; index: number }) {
       <p className="text-xs text-muted-foreground font-mono mt-0.5">
         {item.views} просмотров · {item.date}
       </p>
-    </article>
+    </Link>
   );
 }
 

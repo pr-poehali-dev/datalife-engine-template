@@ -145,7 +145,10 @@ export interface VideoItem {
   views: string;
   date: string;
   thumb: string;
+  description?: string;
 }
+
+export const VIDEO_DESC = "В этом выпуске мы детально разбираем тему, показываем реальные примеры и делимся выводами. Полная версия материала с таймкодами и ссылками — в описании под плеером.";
 
 export const VIDEOS: VideoItem[] = [
   { id: 1, title: "Обзор нейросети нового поколения: тест на реальных задачах", channel: "TechReview", duration: "12:48", views: "248K", date: "2 дня назад", thumb: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/2b0136ea-0d0c-477f-9292-35ee9bdb61ee.jpg" },
@@ -165,10 +168,16 @@ export interface GameItem {
   rating: number;
   date: string;
   cover: string;
+  developer?: string;
+  description?: string;
+  pros?: string[];
+  cons?: string[];
 }
 
+export const GAME_DESC = "Амбициозный проект с проработанным открытым миром, глубокой боевой системой и захватывающим сюжетом. Графика и атмосфера держат планку ААА-уровня, а реиграбельность обеспечивают десятки часов контента.";
+
 export const GAMES: GameItem[] = [
-  { id: 1, title: "Neon Horizon", genre: "Экшен / RPG", platform: "PC, PS5, Xbox", rating: 9.4, date: "Релиз: июнь 2026", cover: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/287febea-448b-464e-922c-90bf890f1fdd.jpg" },
+  { id: 1, title: "Neon Horizon", genre: "Экшен / RPG", platform: "PC, PS5, Xbox", rating: 9.4, date: "Релиз: июнь 2026", cover: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/287febea-448b-464e-922c-90bf890f1fdd.jpg", developer: "Aurora Studios", description: GAME_DESC, pros: ["Огромный детализированный мир", "Отличная боевая система", "Сильный сюжет"], cons: ["Высокие системные требования"] },
   { id: 2, title: "Quantum Drift", genre: "Гонки", platform: "PC, PS5", rating: 8.7, date: "Релиз: май 2026", cover: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/287febea-448b-464e-922c-90bf890f1fdd.jpg" },
   { id: 3, title: "Echoes of Mars", genre: "Стратегия", platform: "PC", rating: 9.1, date: "Релиз: июль 2026", cover: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/287febea-448b-464e-922c-90bf890f1fdd.jpg" },
   { id: 4, title: "Cyber Nexus", genre: "Шутер", platform: "PC, Xbox", rating: 8.2, date: "Релиз: апрель 2026", cover: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/287febea-448b-464e-922c-90bf890f1fdd.jpg" },

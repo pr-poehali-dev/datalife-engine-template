@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import SiteHeader from "@/components/SiteHeader";
 import { GAMES, type GameItem } from "@/data/news";
@@ -11,8 +12,9 @@ function ratingColor(r: number) {
 
 function GameCard({ item, index }: { item: GameItem; index: number }) {
   return (
-    <article
-      className="news-card animate-fade-in group cursor-pointer rounded-lg overflow-hidden border border-border bg-card hover:shadow-lg transition-shadow"
+    <Link
+      to={`/games/${item.id}`}
+      className="news-card animate-fade-in group cursor-pointer rounded-lg overflow-hidden border border-border bg-card hover:shadow-lg transition-shadow block"
       style={{ animationDelay: `${index * 60}ms`, opacity: 0 }}
     >
       {/* Cover with rating badge */}
@@ -42,7 +44,7 @@ function GameCard({ item, index }: { item: GameItem; index: number }) {
         </p>
         <p className="text-xs text-muted-foreground font-mono mt-1">{item.date}</p>
       </div>
-    </article>
+    </Link>
   );
 }
 
