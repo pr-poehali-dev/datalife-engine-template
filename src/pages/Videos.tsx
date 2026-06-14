@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import SiteHeader from "@/components/SiteHeader";
 import { VIDEOS, type VideoItem } from "@/data/news";
+
+const VIDEO_TAGS = ["Все", ...Array.from(new Set(VIDEOS.map((v) => v.tag)))];
 
 function VideoCard({ item, index }: { item: VideoItem; index: number }) {
   return (
@@ -40,19 +43,49 @@ function VideoCard({ item, index }: { item: VideoItem; index: number }) {
 }
 
 export default function Videos() {
+  const [activeTag, setActiveTag] = useState("Все");
+
+  const filtered =
+    activeTag === "Все" ? VIDEOS : VIDEOS.filter((v) => v.tag === activeTag);
+
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
       <main className="max-w-5xl mx-auto px-4 md:px-6 py-8">
-        <div className="flex items-center gap-2 mb-6">
+        <div className="flex items-center gap-2 mb-5">
           <Icon name="Play" size={20} className="text-accent" />
           <h1 className="text-2xl font-bold">Видеоролики</h1>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-7">
-          {VIDEOS.map((item, i) => (
-            <VideoCard key={item.id} item={item} index={i} />
+
+        {/* Подкатегории — теги */}
+        <div className="flex flex-wrap gap-2 mb-7">
+          {VIDEO_TAGS.map((tag) => (
+            <button
+              key={tag}
+              onClick={() => setActiveTag(tag)}
+              className={`text-sm px-3.5 py-1.5 rounded-full border transition-all duration-150 ${
+                activeTag === tag
+                  ? "bg-foreground text-primary-foreground border-foreground"
+                  : "bg-card text-muted-foreground border-border hover:border-foreground hover:text-foreground"
+              }`}
+            >
+              {tag}
+            </button>
           ))}
         </div>
+
+        {filtered.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-7">
+            {filtered.map((item, i) => (
+              <VideoCard key={item.id} item={item} index={i} />
+            ))}
+          </div>
+        ) : (
+          <div className="py-16 text-center text-muted-foreground">
+            <Icon name="Film" size={32} className="mx-auto mb-3 opacity-30" />
+            <p className="text-sm">В этой подкатегории пока нет видео</p>
+          </div>
+        )}
       </main>
     </div>
   );

@@ -145,18 +145,19 @@ export interface VideoItem {
   views: string;
   date: string;
   thumb: string;
+  tag: string;
   description?: string;
 }
 
 export const VIDEO_DESC = "В этом выпуске мы детально разбираем тему, показываем реальные примеры и делимся выводами. Полная версия материала с таймкодами и ссылками — в описании под плеером.";
 
 export const VIDEOS: VideoItem[] = [
-  { id: 1, title: "Обзор нейросети нового поколения: тест на реальных задачах", channel: "TechReview", duration: "12:48", views: "248K", date: "2 дня назад", thumb: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/2b0136ea-0d0c-477f-9292-35ee9bdb61ee.jpg" },
-  { id: 2, title: "Как собрать ПК мечты в 2026 году — полный гайд", channel: "Hardware Lab", duration: "24:15", views: "512K", date: "5 дней назад", thumb: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/2b0136ea-0d0c-477f-9292-35ee9bdb61ee.jpg" },
-  { id: 3, title: "Интервью с основателем стартапа года", channel: "Бизнес+", duration: "08:32", views: "97K", date: "неделю назад", thumb: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/81ca01a0-b330-4482-851a-793e8a8da74a.jpg" },
-  { id: 4, title: "Первый полёт нового марсохода — кадры с орбиты", channel: "Космос ТВ", duration: "15:07", views: "1.2M", date: "3 дня назад", thumb: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/b905cbf4-117a-4f9b-81c5-2c939dc28205.jpg" },
-  { id: 5, title: "Топ-10 технологий, которые изменят будущее", channel: "Futurology", duration: "18:44", views: "356K", date: "4 дня назад", thumb: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/2b0136ea-0d0c-477f-9292-35ee9bdb61ee.jpg" },
-  { id: 6, title: "Разбор архитектуры квантового компьютера", channel: "SciDeep", duration: "31:20", views: "184K", date: "6 дней назад", thumb: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/b905cbf4-117a-4f9b-81c5-2c939dc28205.jpg" },
+  { id: 1, title: "Обзор нейросети нового поколения: тест на реальных задачах", channel: "TechReview", duration: "12:48", views: "248K", date: "2 дня назад", tag: "Обзоры", thumb: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/2b0136ea-0d0c-477f-9292-35ee9bdb61ee.jpg" },
+  { id: 2, title: "Как собрать ПК мечты в 2026 году — полный гайд", channel: "Hardware Lab", duration: "24:15", views: "512K", date: "5 дней назад", tag: "Гайды", thumb: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/2b0136ea-0d0c-477f-9292-35ee9bdb61ee.jpg" },
+  { id: 3, title: "Интервью с основателем стартапа года", channel: "Бизнес+", duration: "08:32", views: "97K", date: "неделю назад", tag: "Интервью", thumb: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/81ca01a0-b330-4482-851a-793e8a8da74a.jpg" },
+  { id: 4, title: "Первый полёт нового марсохода — кадры с орбиты", channel: "Космос ТВ", duration: "15:07", views: "1.2M", date: "3 дня назад", tag: "Новости", thumb: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/b905cbf4-117a-4f9b-81c5-2c939dc28205.jpg" },
+  { id: 5, title: "Топ-10 технологий, которые изменят будущее", channel: "Futurology", duration: "18:44", views: "356K", date: "4 дня назад", tag: "Подборки", thumb: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/2b0136ea-0d0c-477f-9292-35ee9bdb61ee.jpg" },
+  { id: 6, title: "Разбор архитектуры квантового компьютера", channel: "SciDeep", duration: "31:20", views: "184K", date: "6 дней назад", tag: "Обзоры", thumb: "https://cdn.poehali.dev/projects/edb0e44a-043b-481f-848d-cc2ac7283a6c/files/b905cbf4-117a-4f9b-81c5-2c939dc28205.jpg" },
 ];
 
 // ===== Видеоигры =====
