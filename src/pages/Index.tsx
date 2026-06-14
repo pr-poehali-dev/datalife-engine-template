@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import { useTheme } from "@/hooks/use-theme";
+import LogoMenu from "@/components/LogoMenu";
 import { NEWS, CATEGORIES, CATEGORY_COLORS, type NewsItem } from "@/data/news";
 
 function DiggCount({ count }: { count: number }) {
@@ -157,12 +158,7 @@ export default function Index() {
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
         <div className="max-w-5xl mx-auto px-4 md:px-6">
           <div className="flex items-center justify-between h-14">
-            <Link to="/" className="flex items-center gap-2 group">
-              <div className="w-7 h-7 bg-foreground rounded-sm flex items-center justify-center group-hover:bg-accent transition-colors duration-200">
-                <Icon name="Zap" size={14} className="text-primary-foreground" />
-              </div>
-              <span className="text-lg font-bold tracking-tight">НОВОСТИ</span>
-            </Link>
+            <LogoMenu />
 
             <nav
               className={`hidden md:flex items-center gap-1 transition-all duration-300 ease-out ${
