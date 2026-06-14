@@ -222,9 +222,9 @@ export default function Index() {
               >
                 <Icon name={theme === "dark" ? "Sun" : "Moon"} size={16} />
               </button>
-              <button className="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-full bg-secondary text-secondary-foreground hover:bg-muted transition-colors text-sm font-semibold">
+              <Link to="/profile" className="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-full bg-secondary text-secondary-foreground hover:bg-muted transition-colors text-sm font-semibold">
                 А
-              </button>
+              </Link>
             </div>
           </div>
         </div>
