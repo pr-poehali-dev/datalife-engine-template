@@ -19,6 +19,50 @@
   --radius: 4px;
 }
 
+/* Тёмная тема */
+html.dark {
+  --background: #121212;
+  --foreground: #f2f2f2;
+  --card: #1a1a1a;
+  --secondary: #262626;
+  --secondary-foreground: #d9d9d9;
+  --muted: #262626;
+  --muted-foreground: #8c8c8c;
+  --accent: #ff5e2c;
+  --accent-foreground: #ffffff;
+  --border: #2e2e2e;
+}
+
+/* Кнопка переключения темы */
+.theme-toggle {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: var(--radius);
+  color: var(--muted-foreground);
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.15s;
+}
+.theme-toggle:hover {
+  color: var(--foreground);
+  background: var(--secondary);
+}
+.theme-toggle .icon-sun {
+  display: none;
+}
+html.dark .theme-toggle .icon-sun {
+  display: inline;
+}
+html.dark .theme-toggle .icon-moon {
+  display: none;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

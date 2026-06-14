@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>[title]</title>
     <link rel="stylesheet" href="{THEME}/css/style.css">
+    <!-- Применяем тему до отрисовки, чтобы не было моргания -->
+    <script>(function(){var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){document.documentElement.className="dark";}})();</script>
 </head>
 <body>
 
@@ -33,6 +35,12 @@
                 </form>
                 [not-group=5]<a href="{HOME}index.php?do=addnews" class="btn-add">+ Добавить</a>[/not-group]
                 [group=5]<a href="{HOME}index.php?do=register" class="btn-add">Войти</a>[/group]
+
+                <!-- Переключатель темы -->
+                <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Сменить тему">
+                    <span class="icon-moon">🌙</span>
+                    <span class="icon-sun">☀️</span>
+                </button>
             </div>
         </div>
     </div>
@@ -98,5 +106,17 @@
 </footer>
 
 {login}
+
+<!-- Логика переключения темы -->
+<script>
+(function () {
+    var btn = document.getElementById("theme-toggle");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+        var isDark = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+})();
+</script>
 </body>
 </html>
