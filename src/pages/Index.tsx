@@ -162,7 +162,13 @@ export default function Index() {
               <span className="text-lg font-bold tracking-tight">НОВОСТИ</span>
             </Link>
 
-            <nav className="hidden md:flex items-center gap-1">
+            <nav
+              className={`hidden md:flex items-center gap-1 transition-all duration-300 ease-out ${
+                searchOpen
+                  ? "opacity-0 -translate-x-4 pointer-events-none"
+                  : "opacity-100 translate-x-0"
+              }`}
+            >
               {CATEGORIES.slice(1).map((cat) => (
                 <button
                   key={cat}
@@ -178,37 +184,40 @@ export default function Index() {
               ))}
             </nav>
 
-            <div className="flex items-center gap-2">
-              {searchOpen ? (
-                <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-1 justify-end">
+              <div
+                className={`flex items-center transition-all duration-300 ease-out ${
+                  searchOpen ? "flex-1 max-w-md" : "max-w-[2rem]"
+                }`}
+              >
+                {searchOpen && (
                   <input
                     autoFocus
                     type="text"
-                    placeholder="Поиск..."
+                    placeholder="Поиск по новостям..."
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
-                    className="text-sm border border-border rounded px-3 py-1.5 bg-background w-48 outline-none focus:border-foreground transition-colors"
+                    onKeyDown={(e) => { if (e.key === "Escape") { setSearchOpen(false); setSearchValue(""); } }}
+                    className="flex-1 text-sm border border-border rounded px-3 py-1.5 bg-background outline-none focus:border-foreground transition-colors animate-fade-in"
                   />
-                  <button
-                    onClick={() => { setSearchOpen(false); setSearchValue(""); }}
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    <Icon name="X" size={16} />
-                  </button>
-                </div>
-              ) : (
+                )}
                 <button
-                  onClick={() => setSearchOpen(true)}
-                  className="w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors rounded hover:bg-secondary"
+                  onClick={() => { if (searchOpen) { setSearchValue(""); } setSearchOpen((s) => !s); }}
+                  className="w-8 h-8 flex-shrink-0 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors rounded hover:bg-secondary ml-1"
                 >
-                  <Icon name="Search" size={16} />
+                  <Icon name={searchOpen ? "X" : "Search"} size={16} />
                 </button>
-              )}
-              <button className="hidden md:flex items-center gap-1.5 text-sm px-3 py-1.5 bg-foreground text-primary-foreground rounded hover:bg-accent transition-colors duration-150">
+              </div>
+
+              <button
+                className={`hidden md:flex items-center gap-1.5 text-sm px-3 py-1.5 bg-foreground text-primary-foreground rounded hover:bg-accent transition-all duration-300 ${
+                  searchOpen ? "opacity-0 w-0 px-0 overflow-hidden pointer-events-none" : "opacity-100"
+                }`}
+              >
                 <Icon name="Plus" size={14} />
                 Добавить
               </button>
-              <button className="w-8 h-8 flex items-center justify-center rounded-full bg-secondary text-secondary-foreground hover:bg-muted transition-colors text-sm font-semibold">
+              <button className="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-full bg-secondary text-secondary-foreground hover:bg-muted transition-colors text-sm font-semibold">
                 А
               </button>
             </div>
