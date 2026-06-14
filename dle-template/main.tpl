@@ -66,6 +66,14 @@
     </div>
 </header>
 
+<!-- ============ ЛЕНТА ТЕГОВ (под навигацией) ============ -->
+<div class="tags-bar">
+    <div class="wrap tags-bar-inner">
+        <span class="tags-bar-label">Теги:</span>
+        <div class="tag-cloud">{tagscloud}</div>
+    </div>
+</div>
+
 <!-- ============ КОНТЕНТ ============ -->
 <div class="wrap">
     <div class="layout">
@@ -94,12 +102,6 @@
                     <input type="email" name="subscribe_email" placeholder="your@email.com">
                     <button type="submit">Подписаться</button>
                 </form>
-            </div>
-
-            <!-- Облако тегов DLE -->
-            <div class="side-block">
-                <h3>Теги</h3>
-                <div class="tag-cloud">{tagscloud}</div>
             </div>
         </aside>
     </div>
